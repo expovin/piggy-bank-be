@@ -61,8 +61,8 @@ router.get('/facebook/return',  passport.authenticate('facebook', { failureRedir
         console.log("Ruolo : "+role+" userId : "+userId);
         let token = Verify.getToken({"email":user.email,"role":role, "userId":userId});
         console.log("Token : "+token);
-        //res.redirect(url+'/?token='+token);
-        res.status(200).json({token:token, user:user, role:role});
+        res.redirect(process.env.REDIRECT_BASE_URL ? process.env.REDIRECT_BASE_URL+'/?token='+token : '/?token='+token);
+        //res.status(200).json({token:token, user:user, role:role});
       })
       .catch( error => res.status(500).json({success:false, error:error}))
   });

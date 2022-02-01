@@ -8,7 +8,7 @@ var session = require('express-session')
 
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var apiRouter = require('./routes/api');
 var authRouter = require('./routes/auth');
 var authenticate = require('./lib/authenticate');
 
@@ -86,7 +86,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', (req, res, next) => { req.dbConn = db; next()}, usersRouter);
+app.use('/api', (req, res, next) => { req.dbConn = db; next()}, apiRouter);
 app.use('/auth', (req, res, next) => { req.dbConn = db; next()}, authRouter);
 
 // catch 404 and forward to error handler
