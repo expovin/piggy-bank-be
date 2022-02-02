@@ -44,6 +44,7 @@ passport.deserializeUser(function(user, done) {
 
 //app.use(cors());
 var allowedOrigins = ['https://piggybank.expovin.it',
+                      'https://api.expovin.it',
                       'http://localhost:3000',
                       'http://localhost:3001',
                       'http://localhost:8000'];
@@ -65,11 +66,7 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
   }
   else 
-    console.log("Ogigin "+req.headers.origin+" NOT Allowed")
-
-
-
-
+    console.log("Ogigin "+req.headers.origin+" NOT Allowed");
   // Pass to next layer of middleware
   next();
 });
