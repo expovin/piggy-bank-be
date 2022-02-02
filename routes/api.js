@@ -132,6 +132,21 @@ router.route('/transaction/approve')
     res.status(402).json({success:false, error:"Authorization Error: Non hai i diritti per questa chiamata"})
   }
 })
+.delete(Verify.verifyToken, function(req, res, next) {
+  let allawedRoles = ['Approver'];
+  if(allawedRoles.indexOf(req.decoded.role) !== -1){
+
+    console.log(req.headers.transactionid);
+    req.dbConn.deleteTransaction(req.headers.transactionid)
+    .then( result => res.status(200).json({success:true, data:result}))
+    .catch( error => {
+      res.status(500).json({success:false, error:error})
+    })
+  }
+  else {
+    res.status(402).json({success:false, error:"Authorization Error: Non hai i diritti per questa chiamata"})
+  }
+})
 
 router.route('/me')
 .get(Verify.verifyToken, function(req, res, next) {
